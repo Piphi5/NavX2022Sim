@@ -4,10 +4,17 @@
 
 #include <AHRS.h>
 #include <frc/TimedRobot.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 class Robot : public frc::TimedRobot {
  public:
-   AHRS gyro{frc::I2C::Port::kMXP};
+   AHRS gyro{frc::SerialPort::Port::kMXP};
+
+  void RobotPeriodic() {
+    frc::SmartDashboard::PutNumber("Gyro Reading", gyro.GetAngle());
+    frc::SmartDashboard::PutNumber("Gyro Rate", gyro.GetRate());
+  }
+   
 };
 
 #ifndef RUNNING_FRC_TESTS
